@@ -8,7 +8,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping("api/v1")
+@RequestMapping("api/v1/customers")
 public class CustomerController {
 
     private final CustomerService customerService;
@@ -17,34 +17,34 @@ public class CustomerController {
         this.customerService = customerService;
     }
 
-    @PostMapping("/customers")
+    @PostMapping("")
     public ResponseEntity<CustomerDto> createCustomer(@RequestBody CustomerDto customerDto) {
         CustomerDto dto = customerService.createCustomer(customerDto);
         return new ResponseEntity<>(dto, HttpStatus.CREATED);
     }
 
-    @DeleteMapping("/customers/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCustomer(@PathVariable Long id) throws Exception {
         customerService.deleteCustomer(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/customers/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<CustomerDto> findCustomerById(@PathVariable Long id) throws Exception {
         CustomerDto customerDto = customerService.findCustomerById(id);
         return new ResponseEntity<>(customerDto, HttpStatus.OK);
     }
 
-    @GetMapping("/customers")
+    @GetMapping("")
     public ResponseEntity<List<CustomerDto>> findCustomers() {
         List<CustomerDto> dtoList = customerService.customerDtoList();
         return new ResponseEntity<>(dtoList, HttpStatus.OK);
     }
 
-    @PutMapping("/customers/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<CustomerDto> updateCustomer(@PathVariable Long id, @RequestBody CustomerDto customerDto) {
         CustomerDto dto = customerService.updateCustomer(id, customerDto);
-        return new ResponseEntity<>(dto, HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(dto, HttpStatus.OK);
     }
 
 }
